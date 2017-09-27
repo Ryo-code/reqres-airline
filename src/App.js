@@ -3,13 +3,47 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      // requestFailed: false
+    };
+  }
+
+  componentDidMount(){
+    fetch('https://reqres.in/api/users?page=2', {
+      method: 'get'
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log("response", response);
+      this.setState({
+        data: response.data
+      })
+    })
+    .catch((err) => {
+      console.log("Error...", err);
+    });
+  }
+  
   render() {
+
+    if (!this.state.data) return <p> Loading... </p>
+
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
+        {
+        }
+        <h3> 
+          { 
+            // this.state.data[0].first_name
+          }
+        </h3>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
