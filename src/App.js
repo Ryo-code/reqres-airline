@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Row from './components/Row';
 
 class App extends Component {
   constructor(props) {
@@ -23,12 +24,11 @@ class App extends Component {
       })
     })
     .catch((err) => {
-      console.log("Error...", err);
+      console.log(err);
     });
   }
   
   render() {
-
     if (!this.state.data) return <p> Loading... </p>
 
     return (
@@ -37,13 +37,27 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        {
-        }
-        <h3> 
+        
+        <input 
+          type="text"
+          placeholder="Search"
+        />
+        
+        <div className="row-list"> 
           { 
+            this.state.data.map((person) => {
+              return (
+                <Row 
+                  firstName={person.first_name} 
+                  lastName={person.last_name} 
+                  avatar={person.avatar} 
+                  key={person.avatar}
+                />
+              )
+            })
             // this.state.data[0].first_name
           }
-        </h3>
+        </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
