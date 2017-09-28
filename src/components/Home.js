@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import '../App.css';
-import List from './List';
 import { Link } from 'react-router-dom';
-// import Profile from './components/Profile';
-// import Router from '../Router';
+import Row from './Row';
 
-class Home extends Component {
+export default class Home extends Component {
   state = {
     data: []
   }
 
-  componentDidMount(){
-    fetch('https://reqres.in/api/users?page=2', {
+  getData = () => {
+    // const pageNum = Router.get('params').page;
+    const search = this.props.location.search;
+    const pageNum = search.replace('?page=','');
+    // const pageNum = 3;
+    fetch(`https://reqres.in/api/users?page=${pageNum}`, {
       method: 'get'
     })
     .then(response => response.json())
@@ -20,15 +22,24 @@ class Home extends Component {
       this.setState({
         data: response.data
       })
+      console.log(this.state.data);
     })
     .catch((err) => {
       console.log(err);
     });
   }
 
+  componentWillReceiveProps() {
+    this.getData();
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
   render() {
     if (!this.state.data) return <p> Loading... </p>
-
+    console.log(this.props);
     return (
       <div className="App">
         <header className="App-header">
@@ -37,23 +48,25 @@ class Home extends Component {
             type="text"
             placeholder="Search attendant"
           />
-          <Link to="/user"><p>go to user profile page</p></Link>
         </header>
 
-        <List data={this.state.data}/>
-
+        <section className="row-list">         
+          {
+            this.state.data.map(
+              person => <Row person={person} key={person.id} />
+            )
+          }
+        </section>
         <h3>the pagination will go here...</h3>
+
+        <div>
+          <Link to='/home?page=1'> 1 </Link>
+          <Link to='/home?page=2'> 2 </Link>
+          <Link to='/home?page=3'> 3 </Link>
+          <Link to='/home?page=4'> 4 </Link>
+        </div>
+        
       </div>
     );
   }
 }
-
-export default Home;
-
-
-// import React from "react";
-
-// export default (props) => {
-//   console.log("props inside of Home.js", props)
-//   return <div>Home</div>
-// }
