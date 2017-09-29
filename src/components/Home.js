@@ -5,7 +5,8 @@ import Row from './Row';
 
 export default class Home extends Component {
   state = {
-    data: []
+    data: [],
+    pages: 0
   }
 
   getData = () => {
@@ -18,9 +19,10 @@ export default class Home extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      console.log("response", response);
+      console.log("response~~~", response);
       this.setState({
-        data: response.data
+        data: response.data,
+        pages: response.total_pages
       })
       console.log(this.state.data);
     })
@@ -39,16 +41,25 @@ export default class Home extends Component {
 
   render() {
     if (!this.state.data) return <p> Loading... </p>
-    console.log(this.props);
+    console.log("props>>>>>>", this.props);
+    console.log("state>>>>>>", this.state);
+
+
+    for(let i = 0; i < this.state.pages; i++){
+      console.log(`...page ${i + 1}!`)
+    }
+
+    //上はJSだけど、下はJSXなんだ。~~~~~~~~~~~
     return (
       <div className="App">
         <header className="App-header">
           <h1>Welcome to ReqRes Airlines</h1>
-          <input 
-            type="text"
-            placeholder="Search attendant"
-          />
         </header>
+        <input 
+          type="text"
+          placeholder="Search attendant"
+        />
+        <button>submit</button>
 
         <section className="row-list">         
           {
@@ -57,9 +68,8 @@ export default class Home extends Component {
             )
           }
         </section>
-        <h3>the pagination will go here...</h3>
 
-        <div>
+        <div className="pagination-numbers">
           <Link to='/home?page=1'> 1 </Link>
           <Link to='/home?page=2'> 2 </Link>
           <Link to='/home?page=3'> 3 </Link>

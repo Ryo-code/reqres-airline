@@ -14,7 +14,10 @@ const Row = (props) => {
       <p>{first_name} {last_name}</p>
 
       <Link to={`/user/${id}`}>
-        <p>see profile</p>
+        <img 
+          className="pic-small"
+          src="https://png.icons8.com/forward-button/win10/1600"
+        />
       </Link>
     </div>
   );

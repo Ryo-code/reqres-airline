@@ -1,12 +1,21 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: grey;
   height: 150px;
   padding: 20px;
-  color: white;
+  background: snow url("https://fmffiles.s3.amazonaws.com/dist/images/ailines_banner.jpg") center center no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-size: 150%;
 }
 
 body {
@@ -20,18 +29,22 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: space-around;
+  margin-bottom: 4em;
 }
 
 .row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 2em;
   margin: 1em 20%; /* 後でMedia queryにして*/
+  max-width: 25em;
   -webkit-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
   box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
   transition: all .2s ease-in-out;
-  font-size: 150%
+  font-size: 150%;
+  text-align: center;
 }
 
 .row:hover {
@@ -39,7 +52,42 @@ body {
   background: #dce1e8;
 }
 
+.pagination-numbers {
+  display: flex;
+  justify-content: space-between;
+  width: 5em;
+  margin: 0 auto;
+}
+
 .pic-small {
   height: 2.5em;
   width: 2.5em;
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile-pic {
+  height: 25em;
+  width: 25em;
+  border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5em;
+    margin: 1em 5%; /* 後でMedia queryにして*/
+    -webkit-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
+    transition: all .2s ease-in-out;
+    font-size: 110%
+  }
 }
