@@ -77,8 +77,8 @@ body {
 
 .profile-pic {
   margin-top: 2em;
-  height: 25em;
-  width: 25em;
+  height: 20em;
+  width: 20em;
   border-radius: 50%;
 }
 
@@ -101,7 +101,6 @@ form {
   justify-content: space-around;
   align-items: center;
   width: 15em;
-
 }
 
 form input{
@@ -111,25 +110,37 @@ form input{
 
 .two-buttons {
   display: flex;
-  /* background: pink; */
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
+input {
+  height: 2em;
+  font-size: .8em;
+  padding-left: .3em;
+}
+
 button {
   height: 3em;
   width: 8em;
-  font-size: .8em;
+  font-size: .9em;
   font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+  margin: 1em;
 }
 .green-button {
-  background-color: green;
+  background-color: #17AC43;
+}
+.red-button {
+  background-color: firebrick;
 }
 .orange-button {
   background-color: orange;
 }
-
 
 @media (max-width: 600px) {
   .row {

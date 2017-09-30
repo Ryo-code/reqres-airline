@@ -1,71 +1,99 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
 
 export default class Create extends Component {
+  state = {
+    first_name: "",
+    last_name: "",
+    avatar: "",
+    submitted: false
+  }
+
   componentWillMount(){
     const currentProfile = this.props.location.pathname;
     console.log("currentProfile: https://reqres.in/api" + currentProfile);
-    console.log("this.props", this.props);
-    // console.log("response!", this.response);
   }
 
-  // var payload = {
-  //   a: 1,
-  //   b: 2
-  // };
-  // var data = new FormData();
-  // data.append( "json", JSON.stringify( payload ) );
-  // fetch("/echo/json/",
-  // {
-  //   method: "POST",
-  //   body: data
-  // })
-  // .then(response => response.json())
-  // .then(data => console.log( "data...", JSON.stringify(data)) )
+  handleChange = (event) => {
+    this.setState({[event.target.name]: event.target.value});
+  }
 
-  // fetch('https://reqres.in/api/users', {
-  //   method: 'POST',
-  //   headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
-  //   body: `firstName=first_name.value&lastName=last_name.value&avatar=avatar.value`
-  // });
+  submitUser = (e) => {
+    e.preventDefault();
+    console.log(this.state.first_name);
+
+    fetch('https://reqres.in/api/users', {
+      method: 'POST',
+      body: { 
+        first_name: this.state.first_name,  
+        last_name: this.state.last_name, 
+        avatar: this.state.avatar
+      }
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200 || response.status === 201){
+        this.setState({ submitted: true });
+      }
+      return response.json()
+    })
+    .then(response => {
+      console.log(response)
+    }).catch(err => console.log(err));
+  }
 
   render(){
     return(
       <div className="create-form">
-        <h2>Create a new attendant</h2>
+      {
+        !this.state.submitted ?
+        <main className="form-values">
+          <h2>List a new attendant</h2>
+          <form onSubmit={this.submitUser}>
+            <input 
+              name="first_name"
+              type="text"
+              value={this.state.first_name}
+              onChange={this.handleChange}
+              placeholder="First name"
+            />
+            <input 
+              name="last_name"
+              type="text"
+              onChange={this.handleChange}            
+              value={this.state.last_name}
+              placeholder="Last name"
+            />
+            <input 
+              name="avatar"
+              type="text"
+              onChange={this.handleChange}            
+              value={this.state.avatar}
+              placeholder="Image URL"
+            />
 
-        <form>
-          <input 
-            name="first_name"
-            type="text"
-            placeholder="First name"
-          />
-          <input 
-            name="last_name"
-            type="text"
-            placeholder="Last name"
-          />
-          <input 
-            name="avatar"
-            type="text"
-            placeholder="image URL"
-          />
-
-          <section className="two-buttons">
-            <Link to="/">
-              <Button inverted color='green'>Green</Button>
-            
-              <Button className="orange-button">
+            <section className="two-buttons">
+              <Link to="/">
                 Cancel
-              </Button>
-            </Link>
+              </Link>
 
-            <button className="green-button">
-              Submit
-            </button>
-          </section>
-        </form>
+              <button 
+                type="submit"
+                className="green-button"
+              >
+                Submit
+              </button>
+            </section>
+          </form>
+        </main>
+        :
+        <div className="form-success">
+          <p>Success! New attendant has been listed:</p>
+          <p>{this.state.first_name} {this.state.last_name}</p>
+          <Link to="/">
+            Return
+          </Link>
+        </div>
+      }
       </div>
     );
   };

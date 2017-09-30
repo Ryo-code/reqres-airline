@@ -45,11 +45,12 @@ export default class Profile extends Component {
 
         <h2> ID: { id } </h2>
         <div>
-          <button>edit</button>
-          <button>delete</button>
+          <button className="orange-button">edit</button>
+          <button className="red-button">delete</button>
         </div>
+
         <Link to="/">
-          <button>Cancel</button>
+          Return
         </Link>
       </div>
     )
