@@ -1,22 +1,56 @@
 import React, {
   Component
 } from "react";
+import { Link } from "react-router-dom";
 
 export default class Profile extends Component {
+  state = {
+    firstName: "",
+    lastName: "",
+    avatar: "",
+    id: ""
+  }
+
+  componentWillMount(){
+    const currentProfile = this.props.location.pathname;
+    console.log("currentProfile: https://reqres.in/api" + currentProfile);
+    fetch(`https://reqres.in/api${currentProfile}`, {
+      method: 'get'
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log("response~~~", response);
+      const { first_name, last_name, avatar, id } = response.data;
+      this.setState({
+        firstName: first_name,
+        lastName: last_name,
+        avatar: avatar,
+        id: id
+      })
+      console.log("profile state", this.state);
+    })
+  }
+
   render() {
+    const { avatar, firstName, lastName, id } = this.state;
+
     return (
       <div className="profile-page">
         <img 
+          alt="profile"
           className="profile-pic"
-          src="https://images2.alphacoders.com/947/thumb-1920-94710.jpg"
+          src={ avatar }
         />
-        <h1>Sammy Samuelson</h1>
+        <h1> { firstName } { lastName }</h1>
 
-        <h2> ID: 007</h2>
+        <h2> ID: { id } </h2>
         <div>
           <button>edit</button>
           <button>delete</button>
         </div>
+        <Link to="/">
+          <button>Cancel</button>
+        </Link>
       </div>
     )
   }

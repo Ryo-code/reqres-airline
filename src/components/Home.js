@@ -10,11 +10,9 @@ export default class Home extends Component {
   }
 
   getData = () => {
-    // const pageNum = Router.get('params').page;
     const search = this.props.location.search;
-    const pageNum = search.replace('?page=','');
-    // const pageNum = 3;
-    fetch(`https://reqres.in/api/users?page=${pageNum}`, {
+    // console.log("search--->", search)
+    fetch(`https://reqres.in/api/users${search}`, {
       method: 'get'
     })
     .then(response => response.json())
@@ -24,7 +22,7 @@ export default class Home extends Component {
         data: response.data,
         pages: response.total_pages
       })
-      console.log(this.state.data);
+      console.log("this.state.data ~~>", this.state.data);
     })
     .catch((err) => {
       console.log(err);
@@ -41,8 +39,8 @@ export default class Home extends Component {
 
   render() {
     if (!this.state.data) return <p> Loading... </p>
-    console.log("props>>>>>>", this.props);
-    console.log("state>>>>>>", this.state);
+    // console.log("props>>>>>>", this.props);
+    // console.log("state>>>>>>", this.state);
 
 
     for(let i = 0; i < this.state.pages; i++){
@@ -55,11 +53,14 @@ export default class Home extends Component {
         <header className="App-header">
           <h1>Welcome to ReqRes Airlines</h1>
         </header>
-        <input 
-          type="text"
-          placeholder="Search attendant"
-        />
-        <button>submit</button>
+
+        <Link to="/users/create">
+          <img
+            className="icon"
+            alt="create"
+            src="https://cdn0.iconfinder.com/data/icons/round-ui-icons/512/add_blue.png"
+          />
+        </Link>
 
         <section className="row-list">         
           {

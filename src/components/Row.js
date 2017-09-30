@@ -13,8 +13,9 @@ const Row = (props) => {
 
       <p>{first_name} {last_name}</p>
 
-      <Link to={`/user/${id}`}>
+      <Link to={`/users/${id}`}>
         <img 
+          alt="Go to profile page"
           className="pic-small"
           src="https://png.icons8.com/forward-button/win10/1600"
         />

@@ -7,7 +7,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: grey;
   height: 150px;
   padding: 20px;
   background: snow url("https://fmffiles.s3.amazonaws.com/dist/images/ailines_banner.jpg") center center no-repeat;
@@ -39,17 +38,17 @@ body {
   padding: 0 2em;
   margin: 1em 20%; /* 後でMedia queryにして*/
   max-width: 25em;
-  -webkit-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
-  -moz-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
-  box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 5px 2px grey;
+  -moz-box-shadow: 2px 2px 5px 2px grey;
+  box-shadow: 2px 2px 5px 2px grey;
   transition: all .2s ease-in-out;
   font-size: 150%;
   text-align: center;
 }
 
 .row:hover {
-  /* transform: scale(1.01); */
-  background: #dce1e8;
+  transform: scale(1.006);
+  background: #F2F2F3;
 }
 
 .pagination-numbers {
@@ -57,6 +56,11 @@ body {
   justify-content: space-between;
   width: 5em;
   margin: 0 auto;
+}
+
+.icon {
+  height: 4em;
+  width: 4em;
 }
 
 .pic-small {
@@ -72,10 +76,60 @@ body {
 }
 
 .profile-pic {
+  margin-top: 2em;
   height: 25em;
   width: 25em;
   border-radius: 50%;
 }
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 5em auto;
+  max-width: 40em;
+  padding: 2em 2em 4em;
+  -webkit-box-shadow: 2px 2px 5px 2px grey;
+  -moz-box-shadow: 2px 2px 5px 2px grey;
+  box-shadow: 2px 2px 5px 2px grey;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 15em;
+
+}
+
+form input{
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.two-buttons {
+  display: flex;
+  /* background: pink; */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+button {
+  height: 3em;
+  width: 8em;
+  font-size: .8em;
+  font-weight: 500;
+}
+.green-button {
+  background-color: green;
+}
+.orange-button {
+  background-color: orange;
+}
+
 
 @media (max-width: 600px) {
   .row {
@@ -84,10 +138,14 @@ body {
     align-items: center;
     padding: 0 0.5em;
     margin: 1em 5%; /* 後でMedia queryにして*/
-    -webkit-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 2px 5px 2px grey;
+    -moz-box-shadow: 2px 2px 5px 2px grey;
+    box-shadow: 2px 2px 5px 2px grey;
     transition: all .2s ease-in-out;
     font-size: 110%
+  }
+  .create-form {
+    margin: 1em;
+    padding: 1em 1em 2em;
   }
 }

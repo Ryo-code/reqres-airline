@@ -13,9 +13,9 @@ export default () => (
     <Switch>
       <Route path="/" exact component={Home}/>
       <Route path="/home" exact component={Home}/>
-      <Route path="/user/create" exact component={Create}/>
-      <Route path="/user/:id" exact component={Profile}/>
-      <Route path="/user/:id" exact component={Profile}/>
+      <Route path="/users/create" exact component={Create}/>
+      {/* アップデート */}
+      <Route path="/users/:id" exact component={Profile}/>
     </Switch>
   </Router>
 );
