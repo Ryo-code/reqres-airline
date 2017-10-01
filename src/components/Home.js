@@ -55,11 +55,12 @@ export default class Home extends Component {
         </header>
 
         <Link to="/users/create">
-          <img
-            className="icon"
-            alt="create"
-            src="https://cdn0.iconfinder.com/data/icons/round-ui-icons/512/add_blue.png"
-          />
+          <button 
+            type="submit"
+            className="green-button"
+          >
+            Create user
+          </button>
         </Link>
 
         <section className="row-list">         

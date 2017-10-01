@@ -31,6 +31,17 @@ export default class Profile extends Component {
     })
   }
 
+  deleteUser = (e) =>{
+    e.preventDefault();
+    console.log("Clicked!");
+    fetch(`https://reqres.in/api/users/${this.state.id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      console.log(response)
+    })
+  }
+
   render() {
     const { avatar, firstName, lastName, id } = this.state;
 
@@ -48,7 +59,12 @@ export default class Profile extends Component {
           <Link to={`/users/${id}/edit`}>
             <button className="orange-button">edit</button>
           </Link>
-          <button className="red-button">delete</button>
+          <button 
+            onClick={this.deleteUser}
+            className="red-button"
+          >
+            delete
+          </button>
         </div>
 
         <Link to="/">
