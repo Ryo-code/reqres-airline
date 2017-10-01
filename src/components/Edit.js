@@ -9,25 +9,46 @@ export default class Create extends Component {
     submitted: false
   }
 
+  // componentWillMount(){
+  //   const currentProfile = this.props.location.pathname;
+  //   console.log("currentProfile: https://reqres.in/api" + currentProfile);
+  // }
+  
   componentWillMount(){
-    const currentProfile = this.props.location.pathname;
-    console.log("currentProfile: https://reqres.in/api" + currentProfile);
+    const currentProfile = this.props.location.pathname.slice(0, -5);
+    // console.log("currentProfile: https://reqres.in/api" + currentProfile;
+    fetch(`https://reqres.in/api${currentProfile}`, {
+      method: 'get'
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log("response~~~", response);
+      const { first_name, last_name, avatar } = response.data;
+      this.setState({
+        first_name: first_name,
+        last_name: last_name,
+        avatar: avatar,
+      })
+      console.log("profile state", this.state);
+    })
+    .catch(err => console.log(err));
   }
 
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  submitUser = (e) => {
+  submitUpdates = (e) => {
     e.preventDefault();
     console.log(this.state.first_name);
 
-    fetch('https://reqres.in/api/users', {
-      method: 'POST',
+    const { id, first_name, last_name, avatar } = this.state;
+    fetch(`https://reqres.in/api/users${id}`, {
+      method: 'PUT',
       body: { 
-        first_name: this.state.first_name,  
-        last_name: this.state.last_name, 
-        avatar: this.state.avatar
+        first_name: first_name,  
+        last_name: last_name, 
+        avatar: avatar
       }
     }).then(response => {
       console.log(response);
@@ -38,8 +59,7 @@ export default class Create extends Component {
     })
     .then(response => {
       console.log(response)
-    })
-    .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
 
   render(){
@@ -48,8 +68,8 @@ export default class Create extends Component {
       {
         !this.state.submitted ?
         <main className="form-values">
-          <h2>List a new attendant</h2>
-          <form onSubmit={this.submitUser}>
+          <h2>Edit Details</h2>
+          <form onSubmit={this.submitUpdates}>
             <input 
               required
               name="first_name"
@@ -59,7 +79,7 @@ export default class Create extends Component {
               placeholder="First name"
             />
             <input 
-              required
+              required            
               name="last_name"
               type="text"
               onChange={this.handleChange}            
@@ -67,7 +87,7 @@ export default class Create extends Component {
               placeholder="Last name"
             />
             <input 
-              required
+              required          
               name="avatar"
               type="text"
               onChange={this.handleChange}            
@@ -82,16 +102,17 @@ export default class Create extends Component {
 
               <button 
                 type="submit"
-                className="green-button"
+                className="orange-button"
               >
-                Submit
+                Update
               </button>
             </section>
           </form>
         </main>
         :
         <div className="form-success">
-          <p>Success! New attendant has been listed:</p>
+          <p>Details updated for:</p>
+        
           <p>{this.state.first_name} {this.state.last_name}</p>
           <Link to="/">
             Return

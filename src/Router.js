@@ -7,6 +7,7 @@ import {
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Create from "./components/Create";
+import Edit from "./components/Edit";
 
 export default () => (
   <Router>
@@ -16,6 +17,7 @@ export default () => (
       <Route path="/users/create" exact component={Create}/>
       {/* アップデート */}
       <Route path="/users/:id" exact component={Profile}/>
+      <Route path="/users/:id/edit" exact component={Edit}/>
     </Switch>
   </Router>
 );

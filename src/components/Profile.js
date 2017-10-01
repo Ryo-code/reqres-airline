@@ -45,12 +45,14 @@ export default class Profile extends Component {
 
         <h2> ID: { id } </h2>
         <div>
-          <button className="orange-button">edit</button>
+          <Link to={`/users/${id}/edit`}>
+            <button className="orange-button">edit</button>
+          </Link>
           <button className="red-button">delete</button>
         </div>
 
         <Link to="/">
-          Return
+          Back
         </Link>
       </div>
     )
