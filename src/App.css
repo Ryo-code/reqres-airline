@@ -2,7 +2,7 @@
   /* text-align: center; */
 }
 
-.App-header {
+header.App-header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,6 +49,12 @@ body {
 .row:hover {
   /* transform: scale(1.006); */
   background: #F2F2F3;
+}
+
+.centered {
+  align-self: center;
+  text-align: center;
+  margin-left: 20%;
 }
 
 .pagination-numbers {
@@ -163,4 +169,13 @@ button:hover {
     margin: 1em;
     padding: 1em 1em 2em;
   }
+  .centered {
+    margin: 1em 37% 0 37%;
+  }
+  .profile-pic {
+    margin-top: 2em;
+  } 
+  .row-list {
+    margin-bottom: 1em;
+  }  
 }

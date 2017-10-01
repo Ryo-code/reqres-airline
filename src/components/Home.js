@@ -11,7 +11,7 @@ export default class Home extends Component {
 
   getData = () => {
     const search = this.props.location.search;
-    // console.log("search--->", search)
+    console.log("search--->", search)
     fetch(`https://reqres.in/api/users${search}`, {
       method: 'get'
     })
@@ -39,13 +39,14 @@ export default class Home extends Component {
 
   render() {
     if (!this.state.data) return <p> Loading... </p>
-    // console.log("props>>>>>>", this.props);
-    // console.log("state>>>>>>", this.state);
+    console.log("props>>>>>>", this.props);
+    console.log("state>>>>>>", this.state);
 
-
+    let pageNums = [];
     for(let i = 0; i < this.state.pages; i++){
-      console.log(`...page ${i + 1}!`)
+      pageNums.push(i+1)
     }
+    console.log("pageNums is here:", pageNums)
 
     //上はJSだけど、下はJSXなんだ。~~~~~~~~~~~
     return (
@@ -53,13 +54,13 @@ export default class Home extends Component {
         <header className="App-header">
           <h1>Welcome to ReqRes Airlines</h1>
         </header>
-
+          
         <Link to="/users/create">
           <button 
             type="submit"
-            className="green-button"
+            className="green-button centered"
           >
-            Create user
+            New attendant
           </button>
         </Link>
 
@@ -72,12 +73,16 @@ export default class Home extends Component {
         </section>
 
         <div className="pagination-numbers">
-          <Link to='/home?page=1'> 1 </Link>
-          <Link to='/home?page=2'> 2 </Link>
-          <Link to='/home?page=3'> 3 </Link>
-          <Link to='/home?page=4'> 4 </Link>
+          {
+            pageNums.map((number) => {
+              return (
+                <Link to={`/home?page=${number}`} key={number}>
+                {`${number}`}
+                </Link>
+              )
+            })
+          }
         </div>
-        
       </div>
     );
   }
