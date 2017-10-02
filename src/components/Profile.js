@@ -8,7 +8,8 @@ export default class Profile extends Component {
     firstName: "",
     lastName: "",
     avatar: "",
-    id: ""
+    id: "",
+    deleted: false
   }
 
   componentWillMount(){
@@ -38,7 +39,8 @@ export default class Profile extends Component {
       method: 'DELETE'
     })
     .then(response => {
-      console.log(response)
+      console.log(response);
+      this.setState({ deleted: true})
     })
   }
 
@@ -46,30 +48,43 @@ export default class Profile extends Component {
     const { avatar, firstName, lastName, id } = this.state;
 
     return (
-      <div className="profile-page">
+      <div>
+        {
+        !this.state.deleted ?
+        <div className="profile-page">
         <img 
-          alt="profile"
-          className="profile-pic"
-          src={ avatar }
-        />
-        <h1> { firstName } { lastName }</h1>
+            alt="profile"
+            className="profile-pic"
+            src={ avatar }
+          />
+          <h1> { firstName } { lastName }</h1>
 
-        <h2> ID: { id } </h2>
-        <div>
-          <Link to={`/users/${id}/edit`}>
-            <button className="orange-button">edit</button>
+          <h2> ID: { id } </h2>
+          <div>
+            <Link to={`/users/${id}/edit`}>
+              <button className="orange-button">edit</button>
+            </Link>
+            <button 
+              onClick={this.deleteUser}
+              className="red-button"
+            >
+              delete
+            </button>
+          </div>
+
+          <Link to="/">
+            Back
           </Link>
-          <button 
-            onClick={this.deleteUser}
-            className="red-button"
-          >
-            delete
-          </button>
         </div>
-
-        <Link to="/">
-          Back
-        </Link>
+        :
+        <div className="create-form">
+          <p>You have deleted:</p>
+          <p>{this.state.firstName} {this.state.lastName}</p>
+          <Link to="/">
+            Return
+          </Link>
+        </div>
+        }
       </div>
     )
   }

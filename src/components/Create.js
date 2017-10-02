@@ -90,7 +90,7 @@ export default class Create extends Component {
           </form>
         </main>
         :
-        <div className="form-success">
+        <div>
           <p>Success! New attendant has been listed:</p>
           <p>{this.state.first_name} {this.state.last_name}</p>
           <Link to="/">

@@ -60,8 +60,12 @@ body {
 .pagination-numbers {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   width: 5em;
   margin: 0 auto;
+}
+.pagination-numbers p {
+  margin: 0;
 }
 
 .icon {

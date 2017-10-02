@@ -110,7 +110,7 @@ export default class Create extends Component {
           </form>
         </main>
         :
-        <div className="form-success">
+        <div>
           <p>Details updated for:</p>
         
           <p>{this.state.first_name} {this.state.last_name}</p>

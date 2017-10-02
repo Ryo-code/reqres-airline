@@ -6,47 +6,40 @@ import Row from './Row';
 export default class Home extends Component {
   state = {
     data: [],
-    pages: 0
+    pages: 0,
+    page: 1
   }
 
-  getData = () => {
-    const search = this.props.location.search;
-    console.log("search--->", search)
-    fetch(`https://reqres.in/api/users${search}`, {
+  getData = (page = this.state.page) => {
+    fetch(`https://reqres.in/api/users?page=${page}`, {
       method: 'get'
     })
     .then(response => response.json())
     .then(response => {
-      console.log("response~~~", response);
       this.setState({
         data: response.data,
-        pages: response.total_pages
+        pages: response.total_pages,
+        page: page
       })
-      console.log("this.state.data ~~>", this.state.data);
     })
     .catch((err) => {
       console.log(err);
     });
   }
 
-  componentWillReceiveProps() {
-    this.getData();
-  }
-
   componentDidMount() {
-    this.getData();
+    const search = this.props.location.search;
+    const page = search.replace('?page=','');
+    this.getData(+page);
   }
 
   render() {
-    if (!this.state.data) return <p> Loading... </p>
-    console.log("props>>>>>>", this.props);
-    console.log("state>>>>>>", this.state);
+    if (!this.state.data.length) return <p> Loading... </p>
 
     let pageNums = [];
     for(let i = 0; i < this.state.pages; i++){
       pageNums.push(i+1)
     }
-    console.log("pageNums is here:", pageNums)
 
     //上はJSだけど、下はJSXなんだ。~~~~~~~~~~~
     return (
@@ -76,8 +69,17 @@ export default class Home extends Component {
           {
             pageNums.map((number) => {
               return (
-                <Link to={`/home?page=${number}`} key={number}>
-                {`${number}`}
+                this.state.page === number ?
+                <p key={number}>
+                  {number}
+                </p>
+                :
+                <Link 
+                  onClick={() => this.getData(number)} 
+                  to={`/home?page=${number}`} 
+                  key={number}
+                >
+                  {number}
                 </Link>
               )
             })
