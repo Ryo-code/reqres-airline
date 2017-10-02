@@ -20,7 +20,6 @@ export default class Profile extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      console.log("response~~~", response);
       const { first_name, last_name, avatar, id } = response.data;
       this.setState({
         firstName: first_name,
@@ -28,36 +27,36 @@ export default class Profile extends Component {
         avatar: avatar,
         id: id
       })
-      console.log("profile state", this.state);
     })
+    .catch(err => console.log(err));
   }
 
   deleteUser = (e) =>{
     e.preventDefault();
-    console.log("Clicked!");
     fetch(`https://reqres.in/api/users/${this.state.id}`, {
       method: 'DELETE'
     })
     .then(response => {
       console.log(response);
-      this.setState({ deleted: true})
+      this.setState({ deleted: true })
     })
+    .catch(err => console.log(err));    
   }
 
   render() {
-    const { avatar, firstName, lastName, id } = this.state;
+    const { avatar, firstName, lastName, id, deleted } = this.state;
 
     return (
       <div>
         {
-        !this.state.deleted ?
+        !deleted ?
         <div className="profile-page">
-        <img 
+          <img 
             alt="profile"
             className="profile-pic"
-            src={ avatar }
+            src={avatar}
           />
-          <h1> { firstName } { lastName }</h1>
+          <h1> {firstName} {lastName}</h1>
 
           <h2> ID: { id } </h2>
           <div>
@@ -79,7 +78,7 @@ export default class Profile extends Component {
         :
         <div className="create-form">
           <p>You have deleted:</p>
-          <p>{this.state.firstName} {this.state.lastName}</p>
+          <p>{firstName} {lastName}</p>
           <Link to="/">
             Return
           </Link>

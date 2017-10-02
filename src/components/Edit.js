@@ -8,28 +8,20 @@ export default class Create extends Component {
     avatar: "",
     submitted: false
   }
-
-  // componentWillMount(){
-  //   const currentProfile = this.props.location.pathname;
-  //   console.log("currentProfile: https://reqres.in/api" + currentProfile);
-  // }
   
   componentWillMount(){
     const currentProfile = this.props.location.pathname.slice(0, -5);
-    // console.log("currentProfile: https://reqres.in/api" + currentProfile;
     fetch(`https://reqres.in/api${currentProfile}`, {
       method: 'get'
     })
     .then(response => response.json())
     .then(response => {
-      console.log("response~~~", response);
       const { first_name, last_name, avatar } = response.data;
       this.setState({
         first_name: first_name,
         last_name: last_name,
         avatar: avatar,
       })
-      console.log("profile state", this.state);
     })
     .catch(err => console.log(err));
   }
@@ -40,7 +32,6 @@ export default class Create extends Component {
 
   submitUpdates = (e) => {
     e.preventDefault();
-    console.log(this.state.first_name);
 
     const { id, first_name, last_name, avatar } = this.state;
     fetch(`https://reqres.in/api/users${id}`, {
@@ -51,15 +42,13 @@ export default class Create extends Component {
         avatar: avatar
       }
     }).then(response => {
-      console.log(response);
       if (response.status === 200 || response.status === 201){
         this.setState({ submitted: true });
       }
       return response.json()
     })
-    .then(response => {
-      console.log(response)
-    }).catch(err => console.log(err));
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
   }
 
   render(){

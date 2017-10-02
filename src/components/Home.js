@@ -22,9 +22,7 @@ export default class Home extends Component {
         page: page
       })
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
   }
 
   componentDidMount() {

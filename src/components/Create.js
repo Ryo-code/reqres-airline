@@ -20,7 +20,6 @@ export default class Create extends Component {
 
   submitUser = (e) => {
     e.preventDefault();
-    console.log(this.state.first_name);
 
     fetch('https://reqres.in/api/users', {
       method: 'POST',
@@ -30,7 +29,6 @@ export default class Create extends Component {
         avatar: this.state.avatar
       }
     }).then(response => {
-      console.log(response);
       if (response.status === 200 || response.status === 201){
         this.setState({ submitted: true });
       }
