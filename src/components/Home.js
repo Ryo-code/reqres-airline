@@ -29,7 +29,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     const search = this.props.location.search;
-    const page = search.replace('?page=','');
+    const page = search ? search.replace('?page=','') : 1;
     this.getData(+page);
   }
 
