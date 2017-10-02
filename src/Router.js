@@ -1,6 +1,7 @@
 import React from "react";
 import {
   HashRouter as Router,
+  Redirect,
   Route,
   Switch
 } from "react-router-dom";
@@ -11,9 +12,9 @@ import Create from "./components/Create";
 import Edit from "./components/Edit";
 
 export default () => (
-  <Router>
+  <Router basename="/">
     <Switch>
-      <Route path="/" exact component={Home}/>
+      <Redirect path="/" exact to="/home" />
       <Route path="/home" exact component={Home}/>
       <Route path="/users/create" exact component={Create}/>
       <Route path="/users/:id" exact component={Profile}/>
